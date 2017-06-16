@@ -143,7 +143,7 @@ The second use case involves 17 genomes, each of a different species of the plas
 \begin{figure}[t]
  \centering
  \includegraphics[width=0.48\columnwidth]{synmap_n}
- \includegraphics[width=0.48\columnwidth]{chr_all_scatter}
+ \includegraphics[width=0.46\columnwidth]{chr_all_scatter}
  \caption{With the notion of similarity between sets of genes we define, we can create a single plot that summarizes the similarities across genomes. Note that although this is helpful for the six-species plot on the left, this plot is not particularly helpful for the similarity comparison between the \emph{arabidopsis} genomes (on the right). We discuss this further in the text.}
  \label{fig:synmap_n}
 \end{figure}
@@ -208,10 +208,9 @@ We want to utilize these measures to build a notion of distance between the two 
 %% \end{table}
 
 Now we want to find a function of all the $ks$ values that describe the distance between two genomes or, equivalently, a notion of similarity (or a ``kernel'') between the genomes.
-\begin{align}
-similarity(Human, Chimp) = g(ks_1,ks_2...)
-\end{align}
-
+%\begin{align}
+%similarity(Human, Chimp) = g(ks_1,ks_2...)
+%\end{align}
 Generally, for any gene in one genome, there might be syntenic matches to more than one gene on the other genome. Computationally, this means we encode the similarity between the two genomes by arranging the $ks$ values in a matrix:
 
 %ks_{2,1} & ks_{2,2} & ks_{2,3} & \dots & ks_{2, c}\\
@@ -226,21 +225,22 @@ $$
 
 \noindent where $ks_{1,1}$ stores the $ks$ value between the first gene of human and the first gene of chimpanzee, and so on. The indices of rows and columns are in the order of gene locations in ordered chromosomes.
 %, chromosomes are ordered in a natural order to genomicists. 
-$h$ and $c$ are gene counts of human and chimpanzee respectively. One can think of $K$ as an image data of the SymMap plot (\autoref{fig:dotplot_arabidopsis_marked}). Now we want a function of $K$ that outputs a scalar value to describe the similarity between two genomes.
-\begin{align}
-similarity(Human, Chimp) = f(K)
-\end{align}
+$h$ and $c$ are gene counts of human and chimpanzee respectively. One can think of $K$ as an image data of the SymMap plot. Now we want a function of $K$ that outputs a scalar value to describe the similarity between two genomes.
+%\begin{align}
+%similarity(Human, Chimp) = f(K)
+%\end{align}
 
 %TODO include this?
 %Intuitively we want a measure similar to the dot product of vectors of unit length, which encodes cosine of the angle between the two vectors. Moreover, the dot products should better not generating any negative values since there is not a notion of 'negative of a human' among species.
 
 To define a function so that comparison of a genome to itself gives a similarity measure close to $1$, we used $f$ to compute kernels between any two genomes, which are later used to plot \autoref{fig:synmap_n}
+%f(K) = \frac{\sum_{i,j} e^{-\lambda K_{ij}}}{\sqrt{c \times h}}
 \begin{align}
-f(K) = \frac{\sum_{i,j} e^{-\lambda K_{ij}}}{\sqrt{c \times h}}
+similarity(Human, Chimp) = f(K) = \sum_{i,j} e^{-\lambda K_{ij}}/\sqrt{c \times h}
 \end{align}
 Where $\lambda$ is a scalar constant related to sensitivity of the similarity measure. $c$ and $h$ are the gene counts defined before. 
 
-Once we have the pairwise distances among multiple genomes (stored in matrix $M$), we have an implied space, which we can then we project it onto a 2D screen using (for example) Kernel PCA.
+Once we have the pairwise distances among multiple genomes (stored in matrix $M$), we have an implied space, which we can then project it onto a 2D screen using (for example) Kernel PCA.
 %% Let $M$ be the matrix of similarities of multiple genomes where each entry is computed by function $f$ defined above. Note that this is a symmetric matrix with diagonal entries set to $1$, indicating complete identity in similarity measure of each genomes with respect to itself.
 %% $$M = 
 %% \begin{bmatrix}
@@ -271,7 +271,7 @@ As can be clearly seen on the right side of \autoref{fig:synmap_n}, the dimensio
 \begin{figure}[t]
  \centering
  %\includegraphics[width=0.8\textwidth]{subset}
- \includegraphics[width=\columnwidth]{plasmodium}
+ \includegraphics[width=0.6\columnwidth]{plasmodium}
  \caption{In cases where the task involves complex genomic differences such as the ones in our \emph{plasmodium} genome comparison use case shown here, currently-available techniques are not sufficient. Even though in this figure we show only two syntenic dot plots, the use case involves a total of 136 different comparisons, and that requires the development of novel tools and techniques.}
  \label{fig:plasmodium}
 \end{figure}

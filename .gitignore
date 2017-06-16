@@ -5,3 +5,10 @@ main.bbl
 main.blg
 main.log
 main.out
+
+build/main.aux
+build/main.bbl
+build/main.blg
+build/main.log
+build/main.out
+build/main.synctex.gz
