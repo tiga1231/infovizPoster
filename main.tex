@@ -45,22 +45,17 @@
 %% In preprint mode you may define your own headline.
 %\preprinttext{To appear in an IEEE VGTC sponsored conference.}
 
-
-
-
-
 %% Paper title.
-\title{SynMapN: Comparing Multiple Genomes}
+\title{SynMapN: Interactive Visual Comparison for Multiple Genomes}
 
 \author{
 Mingwei Li\thanks{e-mail: mwli@email.arizona.edu}
-\and Carlos Scheidegger\thanks{e-mail: cscheid@cs.arizona.edu}
-\and Eric Lyons\thanks{email: elyons.uoa@gmail.com}
 \and Asher Keith Haug-Baltzell\thanks{email: ahaug@email.arizona.edu}
+\and Eric Lyons\thanks{email: elyons.uoa@gmail.com}
+\and Carlos Scheidegger\thanks{e-mail: cscheid@cs.arizona.edu}
 %TODO Eric and Asher, Heather, Sean?
 }
 \affiliation{\scriptsize University of Arizona}
-
 
 %% A teaser figure can be included as follows, but is not recommended since
 %% the space is now taken up by a full width abstract.
@@ -69,13 +64,19 @@ Mingwei Li\thanks{e-mail: mwli@email.arizona.edu}
 % \caption{Lookit! Lookit!}
 %}
 
-
-
 %% Abstract section.
 \abstract{
-In this poster we give a study of visual exploration of data in the area of comparative genomics. We apply dimensionality reduction in visualizing comparison of many genomes (\autoref{fig:synmap_n}), to give genomicists a high-level overview of the genomes of his/her interest. We try to answer the question of how to provide visual guidance in studying the genetic relations of many genomes.
+  % First, set up the context. (``why'')
+  % Then, say what.
+  % Then, how,
+  Interactive visualization has become a powerful means to explore syntenic relationships among two genomes, with a variety of available tools for domain scientists to employ.
+  However, these tools do not tend to scale well in the case where \emph{many} genomes are compared against one another.
+  This poster describes ongoing efforts to build techniques and tools to help genomicists understand sets of genomes and their syntenic relationships.
+  %% We try to answer the question of how to provide visual guidance in studying the genetic relations of many genomes.
+  %% In this poster we give a study of visual exploration of data in the area of comparative genomics.
+  Our main contribution is a mechanism that defines \emph{set distances}: this can be used to compare entire genomes to one another, as well as \emph{sets of genomes} to each other.
+  Currently, we use this mechanism to generate dimensionality reduction visualizations. We discuss limitations of this approach, as well as future directions.
 }
-
 
 %% ACM Computing Classification System (CCS). 
 %% See <http://www.acm.org/class/1998/> for details.
@@ -99,32 +100,36 @@ In this poster we give a study of visual exploration of data in the area of comp
 \firstsection{Introduction}
 \maketitle
 %% \section{Introduction} %for journal use above \firstsection{..} instead
-In comparative genomics, one of the visual methods that helps studying the structural relations between two genomes is called syntenic dotplot \cite{syntenic_dotplot, synmap}.
-It is a scatter-plot that depicts matched genes between two genomes, inferring regions, called synteny, that originated from the same ancestor. During the genetic analysis, a measure called synonymous mutation rate ($ks$) is computed. Synonymous mutation is a change if a DNA codon to one of its 'synonyms', which translates to the same amino acids thus does not change the protein this gene produce. $ks$ value is a rate of such mutation, normalized by gene sizes. Because those mutations are mostly unharmful and do not change environmental pressures or natural selections of the species, they can be seen as completely random events in a long period of time and thus can be used to predict evolutionary relations. The larger $ks$ value, the longer periods in time two genes are related.
+In comparative genomics, one of the visual methods that helps studying the structural relations between two genomes is called the syntenic dotplot \cite{syntenic_dotplot, synmap}.
+It is a scatterplot that depicts matched genes between two genomes; these matched genes imply \emph{syntenic regions}: those that likely originated from the same ancestor.
+During genomic analysis, a measure called synonymous mutation rate between two genes ($ks$) is computed.
+Because many codons translate to the same amino acid (for example, TCT and TCC both translate to serine), it is possible that a mutation does not change the amino acid that is encoded in the gene: this is a ``synonymous'' mutation.
+The $ks$ value is a rate of such mutations, normalized by gene sizes. Because those mutations are mostly harmless, they tend to not change selection pressure on the genomes. At the same time, they are transmitted hereditarily, and so they can be seen as ``biological clocks'', and thus can be used to estimate evolutionary relations.
+The larger the $ks$ value is, the longer it has been since these two genomes diverged.
 %explain more on the plot, PARAPHRASE this:
 %Each axis represents a sequence laid end-to-end, and each dot in the scatter-plot represents a putative homologous match between the two sequences
-In the dotplot, two axes represent gene locations of two genomes respectively. Each dot on the plot represents a match between two genes. The color usually encodes $ks$ values.
+In the dotplot, two axes represent gene locations of two genomes respectively. Each dot on the plot represents a match between two genes, and the dot colors usually encode $ks$ values.
 
 In some ideal cases, a perfect alignment of two genomes can be observed by seeing a line along the diagonal of a plot, similar to a plot of function $y=x$. This means that the two entities in concern have same genes presented in order. More interesting events like duplication and inversion of genes can be easily spotted from the syntenic dotplot as well (\autoref{fig:dotplot_arabidopsis_marked}). In other cases, it is also common to see only sparse dots, indicating no significant alignment in the two genomes.
 
-Although tools such as syntenic dotplots and MizBee \cite{meyer2009mizbee} and are widely useful, especially in comparing two genomes, there is not many tools in visualizing more than two genomes. In projects like 1000 genomes project \cite{1000genomes}, there is a demand of comparing and clustering many genomes. Adding one more axis of genome to make a 3D scatter plot, for example, may work in certain cases. We would see a line in  diagonal in comparison among human, chimpanzee and gorilla genomes\cite{synmap3durl}. However, it is not visually intuitive to find out complicated relations in 3 species in general. 
-In fact, the user study of Tory et al. \cite{tory2007spatialization} showed that a 3D landscape works not as good as a 2D map in specific tasks such as search and point estimation. We concern about similar inefficiency and inaccuracy in visualizing relations among 3 species in a 3D scatterplot. Moreover, the idea of a 3D scatterplot does not generalize to more than 3 genomes.
+Although tools such as syntenic dotplots and MizBee \cite{meyer2009mizbee} are widely useful, especially in comparing two genomes, there are not many tools designed to explore more than two genomes at once. Because of projects such as the thousand genomes project \cite{1000genomes}, there is a demand for understanding the relationships among many genomes.
+Adding one more axis of genome to make a 3D scatter plot, for example, may work in some (very limited) cases. We would see a line in diagonal in a comparison among human, chimpanzee and gorilla genomes\cite{synmap3durl}.
+However, it is not visually intuitive to find out complicated relations in three species in general. 
+In fact, Tory et al. \cite{tory2007spatialization} showed that a 3D landscape works not as well as a 2D map in specific tasks such as search and point estimation.
+This casts doubt on whether three-dimensional techniques are useful for other tasks such as synteny visualiatization.
+Moreover, a 3D scatterplot clearly does not generalize to more than three genomes.
 
 %TODO citaion? what is paper first introduced scatterplot matrix?
-Scatterplot matrix used in visualizing iris data can be adapted in comparing multiple genomes, with each subplot being a syntenic dotplot of two of the genomes. However, as the number of genomes increases, there is no way in telling the overall relation of genomes through a collection of synteny plots. The scatterplot matrix does not scale up well either.
+Traditional scatterplot matrix displays can be readily adapted for comparing multiple genomes, with each subplot being a syntenic dotplot of two of the genomes.
+However, scatterplot matrices do not scale up well beyond a moderate number of plots~\cite{}.
+As the number of genomes increases, it becomes harder to tell the overall relation between the genomes.
 
-We demonstrate some of our approaches of looking at genomic data. Specifically, we are interested in answering these questions through some visual guidance: What are the relationships of multiple genomes in the evolutionary process? Where in the underlying structure, such as chromosomes or gene ranges, caused their affinity? What parts of their DNA might share a same ancestor? Which of them are closer in time to the ancestor? Which of them share the same duplication or inversion events?
-
-%We demonstrate an exploration of dimensionality reduction techniques to plot a map of multiple genomes, called SynMapN (\autoref{fig:synmap_n}), as an extension of SynMap \cite{syntenic_dotplot, synmap} which compares two genomes.
-
-
-\begin{figure}[t]
- \centering
- \includegraphics[width=0.7\columnwidth]{scatterplot_matrix_human}
- \caption{A SynMapN plot of various species. Note the distant location of Escherichia coli (E.coli), the cluster of chimpanzee, gorilla and human, as well as the cluster of cat, dog and horse}
- \label{fig:scatterplot_matrix_human}
-\end{figure}
-
+In this poster, we describe an ongoing collaboration with domain scientists using multiple-genome comparisons in two use cases.
+%
+The first use case involves a comparison of about one hundred \emph{arabidopsis thaliana} genomes. In this case, the differences between the genomes are encoded by
+a set of SNPs (single-nucleotide polymorphisms).
+%
+The second use case involves 17 genomes, each of a different species of the plasmodium genus. In this case, the genome differences are more complex, often architectural (that is, involving inversions and duplications of entire portions of the genome), and need to be encoded by the entire synteny map.
 
 \begin{figure}[t]
  \centering
@@ -133,7 +138,6 @@ We demonstrate some of our approaches of looking at genomic data. Specifically, 
  \label{fig:synmap_n}
 \end{figure}
 
-
 \begin{figure}[h]
  \centering
  \includegraphics[width=0.8\columnwidth]{dotplot_arabidopsis_marked}
@@ -141,15 +145,12 @@ We demonstrate some of our approaches of looking at genomic data. Specifically, 
  \label{fig:dotplot_arabidopsis_marked}
 \end{figure}
 
-
 %\begin{figure}[h]
 % \centering
 % \includegraphics[width=\columnwidth]{lambda}
 % \caption{lambda test}
 % \label{fig:lambda}
 %\end{figure}
-
-
 
  %TODO do this?
 %\section{Related Works}
