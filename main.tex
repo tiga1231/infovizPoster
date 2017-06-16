@@ -49,11 +49,11 @@
 \title{SynMapN: Interactive Visual Comparison for Multiple Genomes}
 
 \author{
-Mingwei Li\thanks{e-mail: mwli@email.arizona.edu}
+Mingwei Li\thanks{email: mwli@email.arizona.edu}
 \and Andreina Castillo Siri\thanks{email: aicasti1@email.arizona.edu}
 \and Asher Keith Haug-Baltzell\thanks{email: ahaug@email.arizona.edu}
 \and Eric Lyons\thanks{email: elyons.uoa@gmail.com}
-\and Carlos Scheidegger\thanks{e-mail: cscheid@cs.arizona.edu}
+\and Carlos Scheidegger\thanks{email: cscheid@cs.arizona.edu}
 %TODO Eric and Asher, Heather, Sean?
 }
 \affiliation{\scriptsize University of Arizona}
@@ -106,14 +106,14 @@ It is a scatterplot that depicts matched genes between two genomes; these matche
 During genomic analysis, a measure called synonymous mutation rate between two genes ($ks$) is computed.
 Because many codons translate to the same amino acid (for example, TCT and TCC both translate to serine), it is possible that a mutation does not change the amino acid that is encoded in the gene: this is a ``synonymous'' mutation.
 The $ks$ value is a rate of such mutations, normalized by gene sizes. Because those mutations are mostly harmless, they tend to not change selection pressure on the genomes. At the same time, they are transmitted hereditarily, and so they can be seen as ``biological clocks'', and thus can be used to estimate evolutionary relations.
-The larger the $ks$ value is, the longer it has been since these two genomes diverged.
+The larger the $ks$ value is, the longer it has been since two genomes diverged.
 %explain more on the plot, PARAPHRASE this:
 %Each axis represents a sequence laid end-to-end, and each dot in the scatter-plot represents a putative homologous match between the two sequences
 In the dotplot, two axes represent gene locations of two genomes respectively. Each dot on the plot represents a match between two genes, and the dot colors usually encode $ks$ values.
 
-In some ideal cases, a perfect alignment of two genomes can be observed by seeing a line along the diagonal of a plot, similar to a plot of function $y=x$. This means that the two entities in concern have same genes presented in order. More interesting events like duplication and inversion of genes can be easily spotted from the syntenic dotplot as well (\autoref{fig:dotplot_arabidopsis_marked}). In other cases, it is also common to see only sparse dots, indicating no significant alignment in the two genomes.
+In some ideal cases, a perfect alignment of two genomes can be observed by seeing a line along the diagonal of a plot, similar to a plot of function $y=x$. This means that the two entities in concern have same genes presented in order. More interesting events like duplication and inversion of genomic regions, and fusions and fission of chromosomes can be easily spotted from the syntenic dotplot as well. In other cases, it is also common to see only sparse dots, indicating no significant alignment in the two genomes.
 
-Although tools such as SynMap~\cite{synmap} (our collaborator's tool for drawing syntenic dotplot) and MizBee~\cite{meyer2009mizbee} are widely useful, especially in comparing two genomes, there are not many tools designed to explore more than two genomes at once. Because of projects such as the thousand genomes project \cite{1000genomes}, there is a demand for understanding the relationships among many genomes.
+Although tools such as SynMap~\cite{synmap} (our collaborator's tool for drawing syntenic dotplot) and MizBee~\cite{meyer2009mizbee} are widely useful, especially in comparing two genomes, there are not many tools designed to explore more than two genomes at once. Because of projects such as the thousand genomes project \cite{thousandgenomes}, there is a demand for understanding the relationships among many genomes.
 Adding one more axis of genome to make a 3D scatter plot, for example, may work in some (very limited) cases. We would see a line in diagonal in a comparison among human, chimpanzee and gorilla genomes\cite{synmap3durl}.
 However, it is not visually intuitive to find out complicated relations in three species in general. 
 In fact, Tory et al.~\cite{tory2007spatialization} showed that a 3D landscape works not as well as a 2D map in specific tasks such as search and point estimation.
@@ -122,8 +122,8 @@ Moreover, a 3D scatterplot clearly does not generalize to more than three genome
 
 %TODO citaion? what is paper first introduced scatterplot matrix?
 Traditional scatterplot matrix displays can be readily adapted for comparing multiple genomes, with each subplot being a syntenic dotplot of two of the genomes.
-However, scatterplot matrices do not scale up well beyond a moderate number of plots~\cite{}.
-As the number of genomes increases, it becomes harder to tell the overall relation between the genomes.
+%However, scatterplot matrices do not scale up well beyond a moderate number of plots~\cite{}.
+However, as the number of genomes increases, it becomes harder to tell the overall relation between the genomes.
 
 In this poster, we describe an ongoing collaboration with domain scientists using multiple-genome comparisons in two use cases.
 %
@@ -225,7 +225,7 @@ $$
 
 \noindent where $ks_{1,1}$ stores the $ks$ value between the first gene of human and the first gene of chimpanzee, and so on. The indices of rows and columns are in the order of gene locations in ordered chromosomes.
 %, chromosomes are ordered in a natural order to genomicists. 
-$h$ and $c$ are gene counts of human and chimpanzee respectively. One can think of $K$ as an image data of the SymMap plot. Now we want a function of $K$ that outputs a scalar value to describe the similarity between two genomes.
+$h$ and $c$ are gene counts of human and chimpanzee respectively. One can think of $K$ as an image of the SymMap plot. Now we want a function of $K$ that outputs a scalar value to describe the similarity between two genomes.
 %\begin{align}
 %similarity(Human, Chimp) = f(K)
 %\end{align}
@@ -298,8 +298,8 @@ In a complete visualization system, we expect to enable users to navigate throug
 %a grant from XYZ.
 %}
 
-%\bibliographystyle{abbrv}
-\bibliographystyle{abbrv-doi}
+\bibliographystyle{abbrv}
+%\bibliographystyle{abbrv-doi}
 %\bibliographystyle{abbrv-doi-narrow}
 %\bibliographystyle{abbrv-doi-hyperref}
 %\bibliographystyle{abbrv-doi-hyperref-narrow}
