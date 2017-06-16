@@ -1,0 +1,58 @@
+\begin{thebibliography}{10}
+
+\bibitem{1000genomes}
+1000 genomes project.
+\newblock \url{http://www.internationalgenome.org/about}.
+\newblock Accessed: 2017-06-14.
+
+\bibitem{synmap}
+{CoGepedia} synmap.
+\newblock \url{https://genomevolution.org/wiki/index.php/SynMap}.
+\newblock Accessed: 2017-06-14.
+
+\bibitem{syntenic_dotplot}
+{CoGepedia} syntenic dotplot.
+\newblock \url{https://genomevolution.org/wiki/index.php/Syntenic_dotplot}.
+\newblock Accessed: 2017-06-14.
+
+\bibitem{synmap3durl}
+Synmap 3d.
+\newblock \url{https://genomevolution.org/r/lf1i}.
+\newblock Accessed: 2017-06-14.
+
+\bibitem{arabidopsisurl}
+Synmap example.
+\newblock \url{https://genomevolution.org/r/k7cr}.
+\newblock Accessed: 2017-06-14.
+
+\bibitem{endert2011observation}
+A.~Endert, C.~Han, D.~Maiti, L.~House, and C.~North.
+\newblock Observation-level interaction with statistical models for visual
+  analytics.
+\newblock In {\em Visual Analytics Science and Technology (VAST), 2011 IEEE
+  Conference on}, pp. 121--130. IEEE, 2011.
+
+\bibitem{mds}
+J.~B. Kruskal and M.~Wish.
+\newblock {\em Multidimensional scaling}, vol.~11.
+\newblock Sage, 1978.
+
+\bibitem{meyer2009mizbee}
+M.~Meyer, T.~Munzner, and H.~Pfister.
+\newblock Mizbee: a multiscale synteny browser.
+\newblock {\em IEEE transactions on visualization and computer graphics},
+  15(6):897--904, 2009.
+
+\bibitem{kernelpca}
+B.~Sch{\"o}lkopf, A.~Smola, and K.-R. M{\"u}ller.
+\newblock Kernel principal component analysis.
+\newblock In {\em International Conference on Artificial Neural Networks}, pp.
+  583--588. Springer, 1997.
+
+\bibitem{tory2007spatialization}
+M.~Tory, D.~Sprague, F.~Wu, W.~Y. So, and T.~Munzner.
+\newblock Spatialization design: Comparing points and landscapes.
+\newblock {\em IEEE Transactions on Visualization and Computer Graphics},
+  13(6):1262--1269, 2007.
+
+\end{thebibliography}
